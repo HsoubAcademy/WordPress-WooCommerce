@@ -1,0 +1,103 @@
+/*
+ Theme Name:     Storefront Child
+ Description:    Child Theme for Storefront
+ Author:         Hsoub Academy
+ Version:		 1.0.0
+ Template:       storefront
+*/
+
+.site-header{
+    background-color: #f2f2f2;
+}
+
+.summit-title{
+    margin: 0;
+    font-size: 65px;
+    font-weight: 600;
+}
+
+.summit-dates{
+    font-size: 26px;
+}
+
+.product-type-wcp_online_summit .storefront-breadcrumb{
+    margin: 10px 0;
+}
+
+.woocommerce-shop .content-area, .single-product .content-area, .product-type-wcp_online_summit .content-area {
+    float: none;
+    margin-right: 0;
+    width: 100%;
+}
+
+.site-footer {
+    padding: 0;
+}
+
+.site-info {
+    text-align: center;
+    padding: 15px;
+}
+
+.shop-sub-header{
+    text-align: center;
+    font-weight: 700;
+    margin: 50px 0;
+}
+
+.header-widget-region>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    justify-content: center;
+}
+
+.header-widget-region .widget {
+    margin: 0 15px;
+    width: 20%;
+}
+
+.onsale{
+    top: 0;
+    right: 0;
+    left: auto;
+    background-color: #ff0000;
+    color: #ffffff;
+    min-width: 56px;
+    min-height: 32px;
+    line-height: 36px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    text-align: center;
+    border: none;
+    z-index: 9;
+}
+
+.woocommerce-loop-product__title, .price, .add_to_cart_button {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.add_to_cart_button {
+    transition: all .2s linear;
+    white-space: nowrap;
+    color: #ffffff;
+    border-color: #0170B9;
+    background-color: #0170B9;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+}
+
+.add_to_cart_button:hover, .add_to_cart_button:active{
+    transition: all .2s linear;
+    border-color: #3a3a3a;
+    border-color: #3a3a3a;
+}

@@ -1,0 +1,140 @@
+# Copyright (C) 2021 Hsoub Academy
+# This file is distributed under the .
+msgid ""
+msgstr ""
+"Project-Id-Version: Storefront Child 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/storefront-child\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-10-19T09:59:01+00:00\n"
+"PO-Revision-Date: 2021-10-19 13:09+0300\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: storefront-child\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Language: ar\n"
+
+#. Theme Name of the theme
+msgid "Storefront Child"
+msgstr "قالب ستور فرونت الابن"
+
+#. Description of the theme
+msgid "Child Theme for Storefront"
+msgstr "قالب ابن للقالب ستور فرونت"
+
+#. Author of the theme
+msgid "Hsoub Academy"
+msgstr "أكاديمية حسوب"
+
+#: functions.php:29
+msgid ""
+"Your current order total is %s — you must have an order with a minimum of %s "
+"to place your order "
+msgstr ""
+"مجموع قيمة طلبك هو %s — ويجب أن تكون قيمة الطلب مساوية على الأقل %s حتى يتم "
+"إتمام طلبك "
+
+#: functions.php:36
+msgid ""
+"Your current order total is %s — you must have an order with a minimum of %s "
+"to place your order"
+msgstr ""
+"مجموع قيمة طلبك هو %s — ويجب أن تكون قيمة الطلب مساوية على الأقل %s حتى يتم "
+"إتمام طلبك"
+
+#: functions.php:51
+msgid "Northern Ireland"
+msgstr "أيرلندا الشمالية"
+
+#: functions.php:59
+msgid "NIRE"
+msgstr ""
+
+#: functions.php:71
+msgid "Event Starts at: "
+msgstr "يبدأ المؤتمر في: "
+
+#: functions.php:73
+msgid "Event Ends at: "
+msgstr "ينتهي المؤتمر عند: "
+
+#: functions.php:102
+msgid "All Rights Reserved &copy; "
+msgstr "جميع الحقوق محفوظة © "
+
+#: functions.php:142
+msgid "Sale!"
+msgstr "خصم!"
+
+#: inc/wcp-online-summit.php:22
+msgid "Reserve Your Spot"
+msgstr "احجز مكانك"
+
+#: inc/wcp-online-summit.php:45 inc/wcp-online-summit.php:119
+msgid "Online Summit"
+msgstr "مؤتمر عبر الانترنت"
+
+#: inc/wcp-online-summit.php:135
+msgid "Online Summit Name"
+msgstr "اسم المؤتمر"
+
+#: inc/wcp-online-summit.php:136
+msgid "Enter the online summit name or title."
+msgstr "أدخل عنوان أو اسم المؤتمر."
+
+#: inc/wcp-online-summit.php:141
+msgid "Starting Time"
+msgstr "وقت البداية"
+
+#: inc/wcp-online-summit.php:142
+msgid "Enter the exact hour for the start."
+msgstr "أدخل ساعة البداية بشكل دقيق."
+
+#: inc/wcp-online-summit.php:147
+msgid "Ending Time"
+msgstr "وقت النهاية"
+
+#: inc/wcp-online-summit.php:148
+msgid "Enter the exact hour for the end."
+msgstr "أدخل ساعة النهاية بشكل دقيق."
+
+#: inc/wcp-online-summit.php:153
+msgid "Time Zone"
+msgstr "المنطقة الزمنية"
+
+#: inc/wcp-online-summit.php:154
+msgid "Enter the summit time zone."
+msgstr "أدخل المنطقة الزمنية للمؤتمر."
+
+#: inc/wcp-online-summit.php:160
+msgid "Summit Date Range"
+msgstr "تاريخ امتداد المؤتمر"
+
+#: inc/wcp-online-summit.php:161
+msgid "Enter in which dates the summit will start and finish"
+msgstr "أدخل التواريخ التي سوف يبدأ وينتهي بها المؤتمر"
+
+#: inc/wcp-online-summit.php:164
+msgctxt "placeholder"
+msgid "From&hellip;"
+msgstr "من&hellip;"
+
+#: inc/wcp-online-summit.php:172
+msgctxt "placeholder"
+msgid "To&hellip;"
+msgstr "إلى&hellip;"
+
+#: woocommerce/archive-product.php:107
+msgid "Best Selling Products"
+msgstr "المنتجات الأفضل مبيعاً"
+
+#: woocommerce/content-single-product.php:43
+msgid "From "
+msgstr "من "
+
+#: woocommerce/content-single-product.php:45
+msgid " To "
+msgstr " إلى "
