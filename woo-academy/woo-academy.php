@@ -31,7 +31,7 @@ if (!class_exists('Woo_Academy')) {
 
         // Minimum WooCommerce version required by this plugin.
         const MINIMUM_WC_VERSION = '3.5.0';
-
+        
         public static function instance()
         {
             if (null === self::$instance) {
@@ -44,24 +44,90 @@ if (!class_exists('Woo_Academy')) {
         {
             register_activation_hook(__FILE__, array($this, 'activation_check'));
             add_action('admin_init', array($this, 'init_plugin'));
-            add_filter( 'gettext', array($this, 'translate_building_oreder_status'), 10, 3 );
+            add_action( 'plugins_loaded', array( $this, 'init_integration' ) );
+
+            add_action('woocommerce_before_main_content', array($this,  'add_currency_selector'), 90);
+
+            add_action('wp_ajax_set_currency_cookie', array($this, 'set_currency_cookie'));
+            add_action('wp_ajax_nopriv_set_currency_cookie', array($this, 'set_currency_cookie'));
+            add_action('wp_enqueue_scripts', array($this, 'woo_academy_enqueue_assets'));
+
+            add_filter('woocommerce_product_get_price',  array($this, 'change_price'));
+            add_filter('woocommerce_product_variation_get_price', array($this, 'change_price'));
+            add_filter('woocommerce_product_get_regular_price', array($this, 'change_price'));
+            add_filter('woocommerce_product_get_sale_price', array($this, 'change_price'));
+            add_filter('woocommerce_currency_symbol', array($this, 'change_existing_currency_symbol'), 10, 2);
+
+            register_deactivation_hook(__FILE__, array($this, 'on_deactivation'));
         }
 
-        function translate_building_oreder_status( $translated, $untranslated, $domain ) {
-        
-            if ( 'woo-academy' === $domain && get_bloginfo("language") == 'ar' ) {
-                    if ( 'Building' === $untranslated ) {
-                        $translated = 'قيد البناء';
-                    }
+        function woo_academy_enqueue_assets()
+        {
+            // Register the script
+            wp_register_script('set_currency_cookie_ajax', plugin_dir_url(__FILE__) . '/assets/js/ajax.js', array('jquery'));
+
+            // Localize the script with new data
+            $parameters = array('ajaxurl' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('set_currency_cookie'));
+            wp_localize_script('set_currency_cookie_ajax', 'set_currency_cookie_ajax', $parameters);
+
+            // Enqueued script with localized data.
+            wp_enqueue_script('set_currency_cookie_ajax');
+        }
+
+        function change_existing_currency_symbol($currency_symbol, $currency)
+        {
+            if (!isset($_COOKIE['currency']) || $_COOKIE['currency'] == $currency) {
+                return $currency_symbol;
+            } else {
+                $currency_symbol = get_woocommerce_currency_symbol($_COOKIE['currency']);
+                return $currency_symbol;
+            }
+        }
+
+        function change_price($price)
+        {
+            if ($price < 1.0 || !isset($_COOKIE['currency']) || $_COOKIE['currency'] == get_woocommerce_currency()) {
+                return $price;
+            }
+            $pairs = get_option('woo_currency_pairs');
+            foreach ($pairs as $key => $value) {
+                if ($_COOKIE['currency']  == $key) {
+                    return floatval($price) * floatval($value);
                 }
-            return $translated;
+            }
+            return $price;
         }
 
-        public function activation_check()
+        function set_currency_cookie()
+        {
+            if (!wp_verify_nonce($_POST['nonce'], "set_currency_cookie")) {
+
+                exit("Security check error");
+            }
+            $result = array();
+            if (isset($_POST["currency_selector"])) {
+                unset($_COOKIE['currency']);
+                setcookie("currency", $_POST["currency_selector"], time() + 86400, '/');
+                $result['type'] = "success";
+                $result = json_encode($result);
+                echo $result;
+            }
+            die();
+        }
+
+        function add_currency_selector()
+        {
+            return do_shortcode('[currency_selector]');
+        }
+
+        function activation_check()
         {
             if (!version_compare(PHP_VERSION, self::MINIMUM_PHP_VERSION, '>=')) {
                 $this->deactivate_plugin();
                 wp_die(__('Woo Academy could not be activated. The minimum required PHP version is ' . self::MINIMUM_PHP_VERSION, 'woo-academy'));
+            }
+            if (!wp_next_scheduled('get_currencies_from_api_hourly')) {
+                wp_schedule_event(time(), 'hourly', 'get_currencies_from_api_hourly');
             }
         }
 
@@ -73,15 +139,33 @@ if (!class_exists('Woo_Academy')) {
             }
         }
 
+        function on_deactivation()
+        {
+            wp_clear_scheduled_hook('get_currencies_from_api_hourly');
+        }
+
         public function init_plugin()
         {
             if (!$this->is_compatible()) {
                 return;
             }
-            // register the new order status
+            // register the new order status.
             $this->register_building_order_status();
-            // add to list of WooCommerce order statuses
+            // add to list of WooCommerce order statuses.
             add_filter('wc_order_statuses', array($this, 'add_building_to_order_statuses'));
+        }
+
+        public function init_integration() {
+            if ( class_exists( 'WC_Integration' ) ) {
+                // Include our integration class.
+                include_once 'class-woo-academy-integration.php';
+                // Register the integration.
+                add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
+            }
+            $plugin_rel_path = basename( dirname( __FILE__ ) ) . '/languages';
+            load_plugin_textdomain( 'woo-academy', false, $plugin_rel_path );
+            // Setting action for plugin
+            add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'Woo_academy_action_links') );
         }
 
         public function register_building_order_status()
@@ -94,6 +178,18 @@ if (!class_exists('Woo_Academy')) {
                 'show_in_admin_status_list' => true,
                 'label_count' => _n_noop( 'Building <span class="count">(%s)</span>', 'Building <span class="count">(%s)</span>', 'woo-academy' )
             ));
+        }
+
+        public function add_integration( $integrations ) {
+            $integrations[] = 'Woo_Academy_Integration';
+            return $integrations;
+        }
+
+        function Woo_academy_action_links( $links ) {
+
+            $links[] = '<a href="'. menu_page_url( 'wc-settings', false ) .'&tab=integration&section=woo-academy-integration">'
+            .esc_html__('Settings', 'woo-academy' ).'</a>';
+            return $links;
         }
 
         public function add_building_to_order_statuses($order_statuses)

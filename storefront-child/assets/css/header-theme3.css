@@ -1,0 +1,19 @@
+.woocommerce-active .site-header .site-branding {
+    float: left;
+    text-align: left;
+}
+
+.woocommerce-active .site-header .site-search {
+    float: right;
+    text-align: right;
+}
+
+.woocommerce-active .site-header .main-navigation {
+    float: left;
+    text-align: left;
+}
+
+.woocommerce-active .site-header .site-header-cart {
+    float: right;
+    text-align: right;
+}

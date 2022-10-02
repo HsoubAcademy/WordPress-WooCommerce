@@ -79,16 +79,16 @@ function wcp_online_summit_custom_js() {
                 //show Tax fields
                 $('select[name="_tax_status"]').val('none');
                 $('._tax_status_field').parent().addClass('show_if_wcp_online_summit').show();
-                //for Inventory tab
-                $('#inventory_product_data ._manage_stock_field').addClass('show_if_wcp_online_summit').show();
-                $('#inventory_product_data ._sold_individually_field').parent().addClass('show_if_wcp_online_summit').show();
-                $('#inventory_product_data ._sold_individually_field').addClass('show_if_wcp_online_summit').show();
+            	//for Inventory tab
+            	$('#inventory_product_data ._manage_stock_field').addClass('show_if_wcp_online_summit').show();
+            	$('#inventory_product_data ._sold_individually_field').parent().addClass('show_if_wcp_online_summit').show();
+            	$('#inventory_product_data ._sold_individually_field').addClass('show_if_wcp_online_summit').show();
             }
         });
 
         $("#product-type").trigger('change');
-
-        $('.summit_dates_fields').each(function () {
+        
+         $('.summit_dates_fields').each(function () {
             $(this).find('input').datepicker({
                 defaultDate: '',
                 dateFormat: 'yy-mm-dd',
@@ -128,51 +128,41 @@ add_filter('woocommerce_product_data_tabs', 'wcp_online_summit_product_tabs');
  * Adding the online summit tab content fields
  */
 function wcp_online_summit_tab_content() {
-    global $product_object; ?>
-    <div id='wcp_online_summit_options' class='panel woocommerce_options_panel'><?php
-      woocommerce_wp_text_input(
-          array( 'id' => 'wpcp_online_summit_name',
-          'label' => __( 'Online Summit Name', 'storefront-child' ),
-          'desc_tip' => 'true', 'description' => __( 'Enter the online summit name or title.', 'storefront-child' ), 'type' => 'text',
-          'value' => $product_object->get_meta( 'wpcp_online_summit_name', true )
-      ) );
-      woocommerce_wp_text_input(
-       array( 'id' => 'wpcp_online_summit_time_from',
-          'label' => __( 'Starting Time', 'storefront-child' ),
-          'desc_tip' => 'true', 'description' => __( 'Enter the exact hour for the start.', 'storefront-child' ), 'type' => 'text',
-          'value' => $product_object->get_meta('wpcp_online_summit_time_from', true )
-      ) );
-      woocommerce_wp_text_input(
-          array( 'id' => 'wpcp_online_summit_time_to',
-             'label' => __( 'Ending Time', 'storefront-child' ),
-             'desc_tip' => 'true', 'description' => __( 'Enter the exact hour for the end.', 'storefront-child' ), 'type' => 'text',
-             'value' => $product_object->get_meta( 'wpcp_online_summit_time_to', true )
-         ) );
-      woocommerce_wp_text_input(
-      array( 'id' => 'wpcp_online_summit_time_zone',
-          'label' => __( 'Time Zone', 'storefront-child' ),
-          'desc_tip' => 'true', 'description' => __( 'Enter the summit time zone.', 'storefront-child' ), 'type' => 'text',
-          'value' => $product_object->get_meta( 'wpcp_online_summit_time_zone', true )
-      ) );
-
-      echo '<div class="summit_dates_fields">
+  global $product_object; ?>
+  <div id='wcp_online_summit_options' class='panel woocommerce_options_panel'><?php
+    woocommerce_wp_text_input(
+        array( 'id' => 'wpcp_online_summit_name',
+        'label' => __( 'Online Summit Name', 'storefront-child' ),
+        'desc_tip' => 'true', 'description' => __( 'Enter the online summit name or title.', 'storefront-child' ), 'type' => 'text',
+        'value' => $product_object->get_meta( 'wpcp_online_summit_name', true )
+    ) );
+    woocommerce_wp_text_input(
+     array( 'id' => 'wpcp_online_summit_time_from',
+        'label' => __( 'Starting Time', 'storefront-child' ),
+        'desc_tip' => 'true', 'description' => __( 'Enter the exact hour for the start.', 'storefront-child' ), 'type' => 'text',
+        'value' => $product_object->get_meta('wpcp_online_summit_time_from', true )
+    ) );
+    woocommerce_wp_text_input(
+        array( 'id' => 'wpcp_online_summit_time_to',
+           'label' => __( 'Ending Time', 'storefront-child' ),
+           'desc_tip' => 'true', 'description' => __( 'Enter the exact hour for the end.', 'storefront-child' ), 'type' => 'text',
+           'value' => $product_object->get_meta( 'wpcp_online_summit_time_to', true )
+       ) );
+    woocommerce_wp_text_input(
+    array( 'id' => 'wpcp_online_summit_time_zone',
+        'label' => __( 'Time Zone', 'storefront-child' ),
+        'desc_tip' => 'true', 'description' => __( 'Enter the summit time zone.', 'storefront-child' ), 'type' => 'text',
+        'value' => $product_object->get_meta( 'wpcp_online_summit_time_zone', true )
+    ) );
+    
+    echo '<div class="summit_dates_fields">
 	<p class="form-field summit_date_from_field" style="display:block;">
     <label for="_summit_date_from">' . esc_html__( 'Summit Date Range', 'storefront-child' ) . '</label>
     ' . wc_help_tip( __("Enter in which dates the summit will start and finish", "storefront-child") ) . '
-    <input type="text" class="short" name="_summit_date_from" id="_summit_date_from" value="' 
-    . esc_attr( $product_object->get_meta( '_summit_date_from', true ) ) 
-    . '" placeholder="' . esc_html( _x( 'From&hellip;', 'placeholder', 'storefront-child' ) ) 
-    . ' YYYY-MM-DD" maxlength="10" pattern="' 
-    . esc_attr( apply_filters( 'woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ) 
-    . '" />
+    <input type="text" class="short" name="_summit_date_from" id="_summit_date_from" value="' . esc_attr( $product_object->get_meta( '_summit_date_from', true ) ) . '" placeholder="' . esc_html( _x( 'From&hellip;', 'placeholder', 'storefront-child' ) ) . ' YYYY-MM-DD" maxlength="10" pattern="' . esc_attr( apply_filters( 'woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ) . '" />
     </p>
     <p class="form-field summit_date_to_field" style="display:block;">
-    <input type="text" class="short" name="_summit_date_to" id="_summitdate_to" value="' 
-    . esc_attr( $product_object->get_meta( '_summit_date_to', true ) ) 
-    . '" placeholder="' . esc_html( _x( 'To&hellip;', 'placeholder', 'storefront-child' ) ) 
-    . '  YYYY-MM-DD" maxlength="10" pattern="' 
-    . esc_attr( apply_filters( 'woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ) 
-    . '" /> </div>';
+    <input type="text" class="short" name="_summit_date_to" id="_summitdate_to" value="' . esc_attr( $product_object->get_meta( '_summit_date_to', true ) ) . '" placeholder="' . esc_html( _x( 'To&hellip;', 'placeholder', 'storefront-child' ) ) . '  YYYY-MM-DD" maxlength="10" pattern="' . esc_attr( apply_filters( 'woocommerce_date_input_html_pattern', '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])' ) ) . '" /> </div>';
     ?>
   </div>
   <?php

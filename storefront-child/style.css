@@ -1,12 +1,12 @@
 /*
  Theme Name:     Storefront Child
  Description:    Child Theme for Storefront
- Author:         Hsoub Academy
+ Author:         Ali Ali
  Version:		 1.0.0
  Template:       storefront
 */
 
-.site-header{
+.site-header {
     background-color: #f2f2f2;
 }
 
@@ -100,4 +100,8 @@
     transition: all .2s linear;
     border-color: #3a3a3a;
     border-color: #3a3a3a;
+}
+
+.shop-thumbnail-wrap{
+    position: relative;
 }

@@ -37,13 +37,9 @@ if ( post_password_required() ) {
 	if($product->get_type() == 'wcp_online_summit')
 	{
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
-		echo '<h1 class="summit-title">'
-		.esc_html__($product->get_meta('wpcp_online_summit_name', true)).'</h1>'
-		.'<p class="summit-dates"><strong>'
-		.esc_html__('From ','storefront-child').'</strong><i>'
-		.esc_html__($product->get_meta( '_summit_date_from', true )).'</i><strong>'
-		.esc_html__(' To ','storefront-child').'</strong><i>'
-		.esc_html__($product->get_meta( '_summit_date_to', true )).'</i></p>';
+		echo '<h1 class="summit-title">'.esc_html__($product->get_meta('wpcp_online_summit_name', true)).'</h1>'.
+		    '<p class="summit-dates"><strong>'.esc_html__('From ','storefront-child').'</strong><i>'.esc_html__($product->get_meta( '_summit_date_from', true )).
+			'</i><strong>'.esc_html__(' To ','storefront-child').'</strong><i>'.esc_html__($product->get_meta( '_summit_date_to', true )).'</i></p>';
 	}
 	/**
 	 * Hook: woocommerce_before_single_product_summary.
@@ -55,7 +51,9 @@ if ( post_password_required() ) {
 	?>
 
 	<div class="summary entry-summary">
+		
 		<?php
+		
 		/**
 		 * Hook: woocommerce_single_product_summary.
 		 *
